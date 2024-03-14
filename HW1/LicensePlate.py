@@ -1,3 +1,4 @@
+# paste your code below
 import cv2
 import ImageProcess
 import numpy as np
@@ -27,9 +28,9 @@ def order_points_new(pts):
 
 ############################################################################################
 # Below is my code
-ksize=[2]
-thre=[110]
-itera=[2]
+ksize=[4]
+thre=[80]
+itera=[1]
 
 image_list = ['image/01.jpg', 'image/02.jpg', 'image/03.jpg']
 result = []
@@ -137,6 +138,6 @@ for k in range(len(ksize)):
                 cv2.destroyAllWindows() 
                 result.append(possible_img)
             
-            cv2.imwrite('LicensePlate/output/01.jpg', result[0])
-            cv2.imwrite('LicensePlate/output/02.jpg', result[1])
-            cv2.imwrite('LicensePlate/output/03.jpg', result[2])
+            cv2.imwrite('output/01.jpg', result[0])
+            cv2.imwrite('output/02.jpg', result[1])
+            cv2.imwrite('output/03.jpg', result[2])
