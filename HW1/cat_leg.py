@@ -1,9 +1,5 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Oct  5 00:25:44 2021
+#paste your code below
 
-@author: jacky
-"""
 import cv2 
 import numpy as np 
 
@@ -106,8 +102,7 @@ def grayscale_Max(img):
     imgR = np.array(img[:,:,2])
     imgG = np.array(img[:,:,1])
     imgB = np.array(img[:,:,0])
-    nimg = np.zeros((len(imgR[0]),len(imgR[1])))
-    nimg = nimg.astype(np.uint8)
+    nimg = np.copy(imgR)
     for x in range(len(imgR[0])):
         for y in range(len(imgR[1])):
             nimg[x][y]=max(imgR[x][y],imgG[x][y],imgB[x][y])
@@ -115,30 +110,12 @@ def grayscale_Max(img):
 
 
 ## main ##
-img = cv2.imread('input/cat.jpg')
-
-cv2.imshow('img_original',img)
-cv2.waitKey(0)
-
-#Sobel, Scharr, Laplacian or Canny
-"""
-img = Edge_Detection(img,method='Sobel',gray=False,XY=(1,1),Weight=(1,1,0),th=(30,50),size=3,save_image=False,show_image=False)
-img = grayscale_Max(img)
-img = Image_Filter(img,method='medianFilter',size=1,show_image=True)
-#ret, img = cv2.threshold(img,230,0,cv2.THRESH_BINARY)
-
-for x in range(len(img[0])):
-    for y in range(len(img[1])):
-        if img[x][y]>170 or img[x][y]<100:
-            img[x][y]=0
-        else:
-            img[x][y]=255
-"""
-
-img = grayscale_Max(img)
-#img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) 
-img = Image_Filter(img,method='medianBlur',size=3,show_image=False)
-img = cv2.Canny(img, 80,140)
-cv2.imshow('img',img)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+if __name__ == "__main__":
+    img = cv2.imread('input/cat.jpg')
+    img = grayscale_Max(img)
+    #img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) 
+    img = Image_Filter(img,method='medianBlur',size=3,show_image=False)
+    img = cv2.Canny(img,90,140)
+    ret, img = cv2.threshold(img,80,255,cv2.THRESH_BINARY)
+    cv2.imwrite('output/cat.jpg', img)
+    
